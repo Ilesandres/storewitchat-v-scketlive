@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Homepage = () => {
 
     const [producto, setProducto]=useState(false);
+    const [clientes, setClientes]=useState(false);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -11,6 +12,12 @@ const Homepage = () => {
             navigate('/productos')
         }
     },[producto, navigate])
+
+    useEffect(()=>{
+      if(clientes){
+        navigate('/clientes')
+      }
+    },[clientes,navigate])
 
     
     return (
@@ -33,7 +40,7 @@ const Homepage = () => {
             </button>
             </div>
           <div className="sidebar-item">
-            <button type='button'>
+            <button type='button' onClick={()=>{setClientes(!clientes)}}>
                 <img src='https://img.icons8.com/ios/50/crowd.png'/>Clientes
             </button>
             </div>
