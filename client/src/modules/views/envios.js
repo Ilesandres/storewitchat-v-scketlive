@@ -68,7 +68,7 @@ const Envios = () => {
                     type="checkbox"
                     checked={envio.enabled}
                     onChange={() => {
-                      const newEnvios = [...Envios];
+                      const newEnvios = [...envios];
                       newEnvios[index].enabled = !newEnvios[index].enabled;
                       setEnvios(newEnvios);
                     }}
