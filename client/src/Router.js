@@ -4,6 +4,7 @@ import Homepage from './modules/views/homepage';
 import Clientes from './modules/views/clientes';
 import Login from './modules/views/login';
 import Productos from './modules/views/productos';
+import Envios from './modules/views/envios'
 
 const AppRouter = () => {
     return (
@@ -12,6 +13,7 @@ const AppRouter = () => {
             <Route path='/clientes' element={<Clientes/>}/>
             <Route path='/homePage' element={<Homepage/>}/>
             <Route path='/productos' element={<Productos/>}/>
+            <Route path='/envios' element={<Envios/>}/>
 
         </Routes>
     );

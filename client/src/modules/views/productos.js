@@ -5,6 +5,7 @@ const Productos = () => {
 
   const navigate=useNavigate();
   const [back, setBack]=useState(false);
+  const [editar, setEditar]=useState(false);
 
   useEffect(()=>{
     if(back){
@@ -61,7 +62,7 @@ const Productos = () => {
                 <td>{product.stock}</td>
                 <td>{product.precio}</td>
                 <td>
-                  <button className="edit-button">Editar</button>
+                  <button className="edit-button" onClick={()=>{setEditar(!editar)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
                 </td>
                 <td>
                   <input
@@ -90,14 +91,14 @@ const Productos = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="ModalAgregarLabel">Modal title</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"  onClick={()=>{changeEditar()}} aria-label="Close"></button>
             </div>
             <div className="modal-body">
               ...
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
+              <button type="button" className="btn btn-secondary" onClick={()=>{changeEditar()}} data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" >{editar? 'Save changes':'save'}</button>
             </div>
           </div>
         </div>
@@ -105,6 +106,13 @@ const Productos = () => {
 
       </div>
     );
+    
+    function changeEditar(){
+    if(editar){
+     setEditar(!editar);
+    }
+      
+    }
 }
 
 export default Productos;

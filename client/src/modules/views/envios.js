@@ -1,7 +1,7 @@
-import React,{useState, useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Clientes = () => {
+const Envios = () => {
 
     const navigate=useNavigate();
     const [back, setBack]=useState(false);
@@ -14,27 +14,26 @@ const Clientes = () => {
     },[back,navigate])
   
       //ejemplos antes de conectar a BD
-      const [clientes, setProducts] = useState([
-          { name: 'Carlos', edad: 100, direccion: 252, enabled: true },
-          { name: 'camilo', edad: 50,  direccion: 252, enabled: true },
-          { name: 'Cristian Pimiento', edad: 75,  direccion: 252, enabled: true },
-          { name: 'Lorenzo soprae', edad: 20,  direccion: 252, enabled: true },
-          { name: 'List item', edad: 60,  direccion: 252, enabled: true },
-          { name: 'List item', edad: 45,  direccion: 252, enabled: true },
+      const [envios, setEnvios] = useState([
+          { id_factura: '0425-823', direccion: 100, precio: 252, enabled: true },
+          { id_factura: '055665', direccion: 50,  precio: 252, enabled: true },
+          { id_factura: '21225', direccion: 75,  precio: 252, enabled: true },
+          { id_factura: '121564', direccion: 20,  precio: 252, enabled: true },
+          { id_factura: '12558', direccion: 60,  precio: 252, enabled: true },
+          { id_factura: '12105', direccion: 45,  precio: 252, enabled: true },
         ]);
-        
-  
+
     return (
         <div className="product-list-container">
         {/* Encabezado */}
         <header className="header">
           <a className="back-link" onClick={()=>{setBack(!back)}}>Back</a>
-          <h1>Clientes</h1>
+          <h1>envios</h1>
           <button className="add-button" data-bs-toggle="modal" data-bs-target="#ModalAgregar">Agregar</button>
         </header>
   
         {/* Subtítulo */}
-        <p className="subtitle_product">Modifica o actualiza la lista de clientes</p>
+        <p className="subtitle_product">Modifica o actualiza la lista de envios y sus estados</p>
   
         {/* Barra de búsqueda */}
         <div className="search-bar">
@@ -45,33 +44,33 @@ const Clientes = () => {
         <table className="product-table">
           <thead>
             <tr>
-              <th>nombre</th>
-              <th>edad</th>
+              <th>id_factura</th>
               <th>direccion</th>
+              <th>Precio</th>
               <th>Editar</th>
               <th>Habilitado</th>
             </tr>
           </thead>
           <tbody>
-            {clientes.map((product, index) => (
+            {envios.map((envio, index) => (
               <tr key={index}>
                 <td className="product-name">
                   <div className="product-icon">A</div>
-                  {product.name}
+                  {envio.id_factura}
                 </td>
-                <td>{product.edad}</td>
-                <td>{product.direccion}</td>
+                <td>{envio.direccion}</td>
+                <td>{envio.precio}</td>
                 <td>
-                  <button className="edit-button">Editar</button>
+                  <button className="edit-button" data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
                 </td>
                 <td>
                   <input
                     type="checkbox"
-                    checked={product.enabled}
+                    checked={envio.enabled}
                     onChange={() => {
-                      const newclients = [...clientes];
-                      newclients[index].enabled = !newclients[index].enabled;
-                      setProducts(newclients);
+                      const newEnvios = [...Envios];
+                      newEnvios[index].enabled = !newEnvios[index].enabled;
+                      setEnvios(newEnvios);
                     }}
                   />
                 </td>
@@ -108,4 +107,4 @@ const Clientes = () => {
     );
 }
 
-export default Clientes;
+export default Envios;
