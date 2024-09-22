@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Ventas = () => {
+    
+    const [inventario, setInventario]=useState([
+      {codigo: '1010', producto: 'Arroz Roa x1kg', stock:45, precioUnidad:3500},
+      {codigo: '1012', producto: 'Arveja Diana x1kg', stock:18, precioUnidad: 2500 }
+    ]);
+
     const [productos, setProductos] = useState([
         { codigo: '1010', producto: 'Arroz Roa 1x1kg', cantidad: 3, precioUnidad: 3500 },
         { codigo: '1012', producto: 'Arveja Diana 1x1kg', cantidad: 2, precioUnidad: 2500 },
@@ -13,11 +19,6 @@ const Ventas = () => {
     const [searchClient, setSearchClient] = useState(false);
     const [searchC, setSearchC] = useState(false);
     const cambio = pagaCon - total;
-
-    useEffect(() => {
-        console.log('busqueda cliente?');
-        console.log(searchC);
-    }, [searchC]);
 
     const navigate = useNavigate();
 
@@ -41,20 +42,20 @@ const Ventas = () => {
                 <h3>Ingrese la información de la venta</h3>
                 <div className="input-group_ventas">
                     <label>Producto</label>
-                    <input type="text" />
+                    <input type="text" id='inputProduct' readOnly />
                     <button data-bs-toggle="modal" data-bs-target="#ModalSearch" className="search-btn_ventas">🔍</button>
                 </div>
                 <div className="input-group_ventas">
                     <label>Cantidad</label>
-                    <input type="number" />
+                    <input id='cantidadProdcuto' type="number" />
                 </div>
                 <div className="input-group_ventas">
                     <label>Precio</label>
-                    <input type="text" readOnly={true} />
+                    <input type="text" id='precioProducto' readOnly={true} />
                 </div>
                 <div className="action-buttons_ventas">
                     <button className="add-btn_ventas">➕</button>
-                    <button className="clear-btn_ventas">🧹</button>
+                    <button onClick={()=>{clearProductsdata()}} className="clear-btn_ventas">🧹</button>
                 </div>
             </div>
 
@@ -130,6 +131,40 @@ const Ventas = () => {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" onClick={changeEditar} aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
+                        <div className='mb-3'>
+                        <label for="search" className='form-label'>Buscar</label>
+                          <input type='search' name='search' placeholder='producto a buscar' className='form-control'/>
+                          
+                        </div>
+                        <div className='form-group'>
+                        <table className='table'>
+                          
+                          <thead>
+                            <tr>
+                                <th scope='col'>#</th>
+                                <th scope='col'>codigo</th>
+                                <th scope='col'>nombre</th>
+                                <th scope='col'>precio</th>
+                                <th scope='col'>stock</th>
+                                <th scope='col'>añadir</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                          {inventario.map((producto, index)=>(
+                            <tr key={index}>
+                              <th scope='row'>{index+1}</th>
+                              <th>{producto.codigo}</th>
+                              <td>{producto.producto}</td>
+                              <td>{producto.precioUnidad}</td>
+                              <td>{producto.stock}</td>
+                              <td><button onClick={()=>{selectProduct(index)}} className='btn btn-light' type="button">añadir</button></td>
+                            </tr>
+                          ))}
+                          </tbody>
+                            
+                        </table>
+                          
+                        </div>
                             ...
                         </div>
                         <div className="modal-footer">
@@ -162,6 +197,24 @@ const Ventas = () => {
         if (searchC) {
             setSearchC(false);
         }
+    }
+    
+    function selectProduct(index){
+      let in_product= document.getElementById('inputProduct');
+      in_product.value=inventario[index].producto;
+      in_product.key=index;
+      
+      document.getElementById('precioProducto').value=inventario[index].precioUnidad;
+    }
+    
+    function clearProductsdata(){
+      document.getElementById('precioProducto').value='';
+      document.getElementById('inputProduct').value='';
+      document.getElementById('cantidadProdcuto').value='';
+    }
+    
+    function addProduct(){
+      
     }
 }
 
