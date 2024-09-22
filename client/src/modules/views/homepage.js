@@ -7,6 +7,8 @@ const Homepage = () => {
     const [producto, setProducto]=useState(false);
     const [clientes, setClientes]=useState(false);
     const [envios, setCliente]=useState(false);
+    const [facturas, setFacturas]=useState(false);
+    const [perfil, setPerfil]=useState(false);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -26,6 +28,19 @@ const Homepage = () => {
         navigate('/envios')
       }
     },[envios, navigate])
+    
+    useEffect(()=>{
+    if(facturas){
+      navigate('/facturas');
+    }
+    },[facturas,navigate])
+    
+    useEffect(()=>{
+    if(perfil){
+      navigate('/perfil')
+    }
+      
+    },[perfil,navigate])
 
     
     return (
@@ -33,9 +48,15 @@ const Homepage = () => {
         {/* Barra lateral */}
         <aside className="sidebar">
           <div className="sidebar-item">
-            <button type='button' title='User'>
+            <button type='button' title='User' onClick={()=>{setPerfil(!perfil)}}>
                 <img src='https://img.icons8.com/color/48/user.png'/>Usuario
             </button>
+            </div>
+            
+            <div className="sidebar-item"onClick={()=>{navigate('/ventas')}}>
+              <button type='button' title='ventas'>
+                  <img src='https://img.icons8.com/fluency/48/shopping-cart.png'/>ventas
+              </button>
             </div>
           <div className="sidebar-item">
             <button type='button' title='Bussisnes'> 
@@ -43,7 +64,7 @@ const Homepage = () => {
             </button>
             </div>
           <div className="sidebar-item">
-            <button type='button' title='ticket'>
+            <button type='button' title='ticket' onClick={()=>{setFacturas(!facturas)}}>
                 <img src='https://img.icons8.com/ios/50/financial-tasks.png' />Facturas
             </button>
             </div>
