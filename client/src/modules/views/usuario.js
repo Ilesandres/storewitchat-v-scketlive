@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Usuario = () => {
+
     const [hora, setHora] = useState(20);
     const [minuto, setMinuto] = useState(0);
     const [amPm, setAmPm]=useState('Am');
@@ -11,6 +12,7 @@ const Usuario = () => {
       email: 'email@gmail.com',
       descripcion: 'Value'
     });
+    
     useEffect(() => {
         const interval = setInterval(() => {
           const now = new Date();

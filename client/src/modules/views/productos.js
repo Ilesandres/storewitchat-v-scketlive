@@ -24,7 +24,7 @@ const Productos = () => {
       const [descripcionCategoria, setDescripcionCategoria]=useState('');
       const [categorias, setCategorias]=useState([])
       
-      /*obtengo los empleados */
+      /*obtengo las categorias */
       const getCatecogia=()=>{
         Axios.get('http://localhost:3001/leerCategorias').then((response)=>{
           setCategorias(response.data);
@@ -37,6 +37,7 @@ const Productos = () => {
       const [precioProducto, setPrecioProducto]=useState(0);
       const [enabledProducto, setEnabledProducto]=useState(true);
       const [categoriaProduct, setCategoriaProduct]=useState(null);
+      const [searchProducts, setSearchProduct]=useState('');
       const [productos, setProductos]=useState([])
       
       const addProduct=()=>{
@@ -54,17 +55,53 @@ const Productos = () => {
       }
       
       const getProducts=()=>{
-        Axios.get('http://localhost:3001/getProducts').then((response)=>{
+        Axios.get('http://localhost:3001/getProducts',{
+          params: {search:searchProducts}
+        }).then((response)=>{
           setProductos(response.data)
         })
       }
       
+      const deleteProduct=(id)=>{
+        alert('eliminando producto con id : '+id)
+        Axios.post('http://localhost:3001/deleteProduct',{
+          idProduct:id
+        }).then(()=>{
+          alert('producto eliminado con exito')
+        })
+      }
+      
+      const changeStateProduct=(id, valor)=>{
+        Axios.post('http://localhost:3001/changeState',{
+          idProduct:id,
+          valor:valor
+        }).then(()=>{
+          
+        })
+      }
+      
+      const searChproducto=()=>{
+        
+      }
+      
+      
+      useEffect(()=>{
+      if(searchProducts){
+        console.log(searchProducts);
+        getProducts();
+      }
+        
+      },[searchProducts]);
       
       
       
       
-      getProducts();
-      getCatecogia();
+      
+  
+        getProducts();
+        getCatecogia();
+
+      
 
     return (
         <div className="product-list-container">
@@ -80,15 +117,17 @@ const Productos = () => {
   
         {/* Barra de búsqueda */}
         <div className="search-bar">
-          <input type="text" placeholder="Search" className="search-input" />
+          <input type="text" onChange={(event)=>{setSearchProduct(event.target.value)}} placeholder="Search" className="search-input"/>
         </div>
   
         {/* Tabla de productos */}
         <table className="product-table">
           <thead>
             <tr>
+              <th>#</th>
               <th>Producto</th>
               <th>Stock</th>
+              <th>Categoria</th>
               <th>Precio</th>
               <th>Editar</th>
               <th>Habilitado</th>
@@ -97,23 +136,25 @@ const Productos = () => {
           <tbody>
             {productos.map((product, index) => (
               <tr key={index}>
+                <td className='index_product'>{index+1}</td>
                 <td className="product-name">
                   <div className="product-icon">A</div>
                   {product.PRODUCT_NAME}
                 </td>
                 <td>{product.STOCK}</td>
+                <td>{product.CATEGORY_NAME}</td>
                 <td>{product.PRICE}</td>
                 <td>
                   <button className="edit-button" onClick={()=>{setEditar(!editar)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
+                  <button type="button"  className="delete-button_product" onClick={()=>{deleteProduct(product.ID_PRODUCT)}}>Eliminar</button>
+
                 </td>
                 <td>
                   <input
                     type="checkbox"
                     checked={product.ISACTIVO}
-                    onChange={() => {
-                      const newProducts = [...productos];
-                      newProducts[index].enabled = !newProducts[index].enabled;
-                      setProductos(newProducts);
+                    onChange={(event) => {
+                      changeStateProduct(product.ID_PRODUCT, event.target.checked);
                     }}
                   />
                 </td>

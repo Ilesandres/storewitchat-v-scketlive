@@ -52,20 +52,83 @@ app.post('/addProduct',(req,res)=>{
         if(err){
             console.log(err)
         }else{
-            res.send('prodcto agregado correctamente')
+            const productId=result.insertId;
+            db.query('INSERT INTO PRODUCT_CATEGORY(CATEGORY_ID, PRODUCT_ID) VALUES(?,?)',[category, productId],(err2,result1)=>{
+                if(err){
+                    console.log(err2)
+                }else{
+                    res.send('prodcto agregado correctamente')
+                }
+            })
+            
         }
     })
 });
 
 app.get('/getProducts',(req,res)=>{
-    db.query('SELECT *FROM PRODUCT',(err,result)=>{
+        
+    const searchData = req.query.search; // Tomamos el dato de búsqueda desde 'query' en lugar de 'body'
+  
+    // Si searchData está vacío, no filtramos por nombre
+    let query = `SELECT PRODUCT.ID_PRODUCT, PRODUCT.PRODUCT_NAME, PRODUCT.STOCK, PRODUCT.PRICE,
+                 CATEGORY.CATEGORY_NAME, PRODUCT.ISACTIVO
+                 FROM CATEGORY
+                 INNER JOIN PRODUCT_CATEGORY ON CATEGORY.ID_CATEGORY = PRODUCT_CATEGORY.CATEGORY_ID
+                 INNER JOIN PRODUCT ON PRODUCT_CATEGORY.PRODUCT_ID = PRODUCT.ID_PRODUCT`;
+  
+    if (searchData) {
+      query += ` WHERE PRODUCT.PRODUCT_NAME LIKE ?`; // Si hay dato de búsqueda, agregamos la cláusula WHERE
+    }
+  
+    db.query(query, searchData ? [`%${searchData}%`] : [], (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error al realizar la búsqueda');
+      } else {
+        res.send(result);
+      }
+    });
+})
+
+app.post('/deleteProduct',(req,res)=>{
+    const idProduct=req.body.idProduct;
+    
+    db.query(`DELETE FROM PRODUCT_CATEGORY WHERE PRODUCT_ID=?`,[idProduct],(err,seult)=>{
         if(err){
             console.log(err);
         }else{
-            res.send(result);
+            db.query(`DELETE FROM PRODUCT WHERE ID_PRODUCT=?`,[idProduct],(err2, result2)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    res.send('producto eliminado con exito')
+                }
+            })
         }
     })
+    
+    
 })
+
+app.post('/changeState',(req,res)=>{
+    const idProduct=req.body.idProduct;
+    const valor=req.body.valor;
+    db.query(`UPDATE PRODUCT SET ISACTIVO=? WHERE ID_PRODUCT=?`,[valor,idProduct],(err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send('estado del producto cambiado')
+        }
+    })
+    
+    
+})
+
+
+app.get('/searchProdct',(req,res)=>{
+
+})
+
 
 
 app.listen(3001,()=>{

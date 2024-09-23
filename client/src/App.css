@@ -92,6 +92,46 @@ body {
   flex-direction: column;
 }
 
+.client-btn-ventas{
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  background-color: #5A67D8;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.option-descripcion-category {
+  font-size: 0.8em;
+  color: #1c1c1c; 
+  font-style: italic; 
+}
+
+
+.delete-button_product{
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  background-color: #E53E3E;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.index_product{
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  background-color: #5A67D8;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
 .product-card {
   background-color: white;
   padding: 20px;
@@ -664,21 +704,4 @@ body {
 
 .client-seacrh-table{
   
-}
-
-.client-btn-ventas{
-  padding: 10px;
-  margin: 5px;
-  border: none;
-  background-color: #5A67D8;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.option-descripcion-category {
-  font-size: 0.8em;
-  color: #1c1c1c; 
-  font-style: italic; 
 }
