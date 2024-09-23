@@ -676,3 +676,9 @@ body {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+.option-descripcion-category {
+  font-size: 0.8em;
+  color: #1c1c1c; 
+  font-style: italic; 
+}

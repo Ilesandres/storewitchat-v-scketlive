@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import Axios from 'axios';
+
 
 const Productos = () => {
 
@@ -13,16 +15,56 @@ const Productos = () => {
     }
 
   },[back,navigate])
-
-    //ejemplos antes de conectar a BD
-    const [products, setProducts] = useState([
-        { name: 'List item', stock: 100, precio: 252, enabled: true },
-        { name: 'List item', stock: 50,  precio: 252, enabled: true },
-        { name: 'List item', stock: 75,  precio: 252, enabled: true },
-        { name: 'List item', stock: 20,  precio: 252, enabled: true },
-        { name: 'List item', stock: 60,  precio: 252, enabled: true },
-        { name: 'List item', stock: 45,  precio: 252, enabled: true },
-      ]);
+     
+      
+      
+      
+      /*categoria */
+      const [categoria, setCategoria]=useState('');
+      const [descripcionCategoria, setDescripcionCategoria]=useState('');
+      const [categorias, setCategorias]=useState([])
+      
+      /*obtengo los empleados */
+      const getCatecogia=()=>{
+        Axios.get('http://localhost:3001/leerCategorias').then((response)=>{
+          setCategorias(response.data);
+        })
+      }
+      
+      /*productos */
+      const [nombreProducto, setNombreProducto]=useState(null);
+      const [stockProducto, setStockProducto]=useState(0);
+      const [precioProducto, setPrecioProducto]=useState(0);
+      const [enabledProducto, setEnabledProducto]=useState(true);
+      const [categoriaProduct, setCategoriaProduct]=useState(null);
+      const [productos, setProductos]=useState([])
+      
+      const addProduct=()=>{
+        if(nombreProducto!==null && categoriaProduct!==null){
+          Axios.post('http://localhost:3001/addProduct',{
+            nombre: nombreProducto,
+            stock:   stockProducto ,
+            precio:    precioProducto,
+            category:   categoriaProduct,
+            isActivo:    enabledProducto
+          }).then(()=>{
+            alert('producto agregado correctamente')
+          })
+        }
+      }
+      
+      const getProducts=()=>{
+        Axios.get('http://localhost:3001/getProducts').then((response)=>{
+          setProductos(response.data)
+        })
+      }
+      
+      
+      
+      
+      
+      getProducts();
+      getCatecogia();
 
     return (
         <div className="product-list-container">
@@ -53,25 +95,25 @@ const Productos = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => (
+            {productos.map((product, index) => (
               <tr key={index}>
                 <td className="product-name">
                   <div className="product-icon">A</div>
-                  {product.name}
+                  {product.PRODUCT_NAME}
                 </td>
-                <td>{product.stock}</td>
-                <td>{product.precio}</td>
+                <td>{product.STOCK}</td>
+                <td>{product.PRICE}</td>
                 <td>
                   <button className="edit-button" onClick={()=>{setEditar(!editar)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
                 </td>
                 <td>
                   <input
                     type="checkbox"
-                    checked={product.enabled}
+                    checked={product.ISACTIVO}
                     onChange={() => {
-                      const newProducts = [...products];
+                      const newProducts = [...productos];
                       newProducts[index].enabled = !newProducts[index].enabled;
-                      setProducts(newProducts);
+                      setProductos(newProducts);
                     }}
                   />
                 </td>
@@ -94,15 +136,75 @@ const Productos = () => {
               <button type="button" className="btn-close" data-bs-dismiss="modal"  onClick={()=>{changeEditar()}} aria-label="Close"></button>
             </div>
             <div className="modal-body">
-              ...
+              <div className='mb-3'>
+                <label for="nombreProducto" className='form-label'>Nombre del producto</label>
+                <input type="text" onChange={(event)=>{setNombreProducto(event.target.value)}} name='nombreProduct' className='form-control' placeholder='nombre producto' />
+                <label for="cantidad" className='form-label'>cantidad</label>
+                <input type="number"  onChange={(event)=>{setStockProducto(event.target.value)}} className='form-control' placeholder='cantidad' />
+                <label for="precio">precio</label>
+                <input type="number"  onChange={(event)=>{setPrecioProducto(event.target.value)}}  className='form-control' placeholder='$ precio' />
+
+              
+                    <div class="mb-3 ">
+                      <label for="" className="form-label">categoria</label>
+                      <select
+                        class="form-select"
+                        name="categoria"
+                        id="categoria"
+                        onChange={(event)=>{setCategoriaProduct(event.target.value)}}
+                      >
+                       <option selected>seleccione</option>
+                      {categorias.map((categoria,index)=>(
+                        <option value={categoria.ID_CATEGORY} key={index}> <b className='fs-6'>{categoria.CATEGORY_NAME}</b>  ::: <b>{categoria.DESCRIPTION}</b></option>
+                      ))}
+                       
+                      
+                      </select>
+                      <button type="button" data-bs-toggle='modal' data-bs-target='#agregarCategoria' className='btn btn'><img src="https://img.icons8.com/color/48/add--v1.png" alt="" /></button>
+                  
+                </div>
+                
+              </div>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" onClick={()=>{changeEditar()}} data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" >{editar? 'Save changes':'save'}</button>
+              <button type="button" className="btn btn-primary" onClick={saveProduct} >{editar? 'Save changes':'save'}</button>
             </div>
           </div>
         </div>
       </div>
+      
+      {/*modal de categorias para añadir*/}
+      
+      <div class="modal fade " id="agregarCategoria"  tabindex="-1" aria-labelledby="agregarCategoriaLabel" aria-hidden="true" data-bs-backdrop='static'>
+        <div class="modal-dialog modal-dialog-centered ">
+          <div class="modal-content bg-secondary text-white">
+            <div class="modal-header">
+              <h5 class="modal-title" id="agregarCategoriaLabel">agregar categoria</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div className='mb-3'>
+              <label for="nombreCategoria" className='form-label'>Nombre de la categoria</label>
+              <input type="text" name='nombreCategoria' onChange={(event)=>{
+              setCategoria(event.target.value);
+              }} className='form-control' placeholder='nombre'/>
+              <label for="descripcion" className='form-label' >descripcion</label>
+              <textarea cols="30" name='descripcion' onChange={(event)=>{
+              setDescripcionCategoria(event.target.value);
+              }} rows="10" className='form-control' placeholder='describe brevemente la categoria'></textarea>
+            </div>
+                
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onClick={agregarCategory}>Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
 
       </div>
     );
@@ -110,9 +212,25 @@ const Productos = () => {
     function changeEditar(){
     if(editar){
      setEditar(!editar);
+    }  
     }
-      
+    
+    /*min 48:13 */
+    function agregarCategory(){
+      Axios.post("http://localhost:3001/createCategory",{
+        category:categoria,
+        description:descripcionCategoria
+      }).then(()=>{
+        alert('categoria registrado')
+      })
     }
+    
+    function saveProduct(){
+      if(!editar){
+        addProduct();
+      }
+    }
+    
 }
 
 export default Productos;

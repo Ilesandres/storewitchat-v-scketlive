@@ -1,6 +1,6 @@
 #🛒📉 tienda en linea con SQL y PHP
 ```
-codigo libre de una tienda online, las tecnologias usadas son react, node y sql, 
+codigo libre de una tienda online, las tecnologias usadas son react(axios), node(expres,sql) y sql, 
 ```
 Este es un proyecto de tienda a escala media que aun se encuentra en desarrollo el, la version final sera marcada por medio de este mismo readme con una imagen o texto que lo indique, por lo pronto el sistema ya puede ser usado conjunto a la base de datos incluido en este mismo repositorio, para desarrollo de sistemas a la medida puedes buscar mis metodos de contacto en mi perfil ✋, la contraseña y usuario mostrado a continuacion aun no estan habilitadas
 
