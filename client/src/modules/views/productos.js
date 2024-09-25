@@ -38,12 +38,8 @@ const Productos = () => {
       const [enabledProducto, setEnabledProducto]=useState(true);
       const [categoriaProduct, setCategoriaProduct]=useState(null);
       const [searchProducts, setSearchProduct]=useState('');
-<<<<<<< HEAD
-      const [productos, setProductos]=useState([])
-=======
       const [productos, setProductos]=useState([]);
       const [editProduct,setProductEdit]=useState([]);
->>>>>>> 062877f (product)
       
       const addProduct=()=>{
         if(nombreProducto!==null && categoriaProduct!==null){
@@ -55,10 +51,7 @@ const Productos = () => {
             isActivo:    enabledProducto
           }).then(()=>{
             alert('producto agregado correctamente')
-<<<<<<< HEAD
-=======
             getProducts();
->>>>>>> 062877f (product)
           })
         }
       }
@@ -77,10 +70,7 @@ const Productos = () => {
           idProduct:id
         }).then(()=>{
           alert('producto eliminado con exito')
-<<<<<<< HEAD
-=======
           getProducts();
->>>>>>> 062877f (product)
         })
       }
       
@@ -93,13 +83,6 @@ const Productos = () => {
         })
       }
       
-<<<<<<< HEAD
-      const searChproducto=()=>{
-        
-      }
-      
-=======
->>>>>>> 062877f (product)
       
       useEffect(()=>{
       if(searchProducts){
@@ -111,14 +94,6 @@ const Productos = () => {
       
       
       
-<<<<<<< HEAD
-      
-      
-  
-        getProducts();
-        getCatecogia();
-
-=======
       useEffect(()=>{
         if(editar){
           console.log(editar);
@@ -144,7 +119,6 @@ const Productos = () => {
         
   // Se ejecuta solo cuando el componente se monta
       
->>>>>>> 062877f (product)
       
 
     return (
@@ -161,11 +135,7 @@ const Productos = () => {
   
         {/* Barra de búsqueda */}
         <div className="search-bar">
-<<<<<<< HEAD
-          <input type="text" onChange={(event)=>{setSearchProduct(event.target.value)}} placeholder="Search" className="search-input"/>
-=======
           <input type="search" onChange={(event)=>{setSearchProduct(event.target.value)}} placeholder="Search" className="search-input"/>
->>>>>>> 062877f (product)
         </div>
   
         {/* Tabla de productos */}
@@ -183,11 +153,7 @@ const Productos = () => {
           </thead>
           <tbody>
             {productos.map((product, index) => (
-<<<<<<< HEAD
-              <tr key={index}>
-=======
               <tr key={product.ID_PRODUCT}>
->>>>>>> 062877f (product)
                 <td className='index_product'>{index+1}</td>
                 <td className="product-name">
                   <div className="product-icon">A</div>
@@ -197,27 +163,16 @@ const Productos = () => {
                 <td>{product.CATEGORY_NAME}</td>
                 <td>{product.PRICE}</td>
                 <td>
-<<<<<<< HEAD
-                  <button className="edit-button" onClick={()=>{setEditar(!editar)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
-                  <button type="button"  className="delete-button_product" onClick={()=>{deleteProduct(product.ID_PRODUCT)}}>Eliminar</button>
-=======
                   <button className="edit-button" onClick={()=>{setEditar(!editar); setProductEdit(product)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
                   <button type="button"  className="delete-button_product" onClick={()=>{deleteProduct(product.PRODUCT_ID)}}>Eliminar</button>
->>>>>>> 062877f (product)
 
                 </td>
                 <td>
                   <input
                     type="checkbox"
-<<<<<<< HEAD
-                    checked={product.ISACTIVO}
-                    onChange={(event) => {
-                      changeStateProduct(product.ID_PRODUCT, event.target.checked);
-=======
                     checked={product.IS_ACTIVE}
                     onChange={(event) => {
                       changeStateProduct(product.PRODUCT_ID, event.target.checked);
->>>>>>> 062877f (product)
                     }}
                   />
                 </td>
@@ -236,29 +191,17 @@ const Productos = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-<<<<<<< HEAD
-              <h5 className="modal-title" id="ModalAgregarLabel">Modal title</h5>
-=======
               <h5 className="modal-title" id="ModalAgregarLabel">{editar?'Editar el producto':'agregar producto'}</h5>
->>>>>>> 062877f (product)
               <button type="button" className="btn-close" data-bs-dismiss="modal"  onClick={()=>{changeEditar()}} aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <div className='mb-3'>
                 <label for="nombreProducto" className='form-label'>Nombre del producto</label>
-<<<<<<< HEAD
-                <input type="text" onChange={(event)=>{setNombreProducto(event.target.value)}} name='nombreProduct' className='form-control' placeholder='nombre producto' />
-                <label for="cantidad" className='form-label'>cantidad</label>
-                <input type="number"  onChange={(event)=>{setStockProducto(event.target.value)}} className='form-control' placeholder='cantidad' />
-                <label for="precio">precio</label>
-                <input type="number"  onChange={(event)=>{setPrecioProducto(event.target.value)}}  className='form-control' placeholder='$ precio' />
-=======
                 <input type="text"  onChange={(event)=>{setNombreProducto(event.target.value)}} name='nombreProduct' className='form-control' placeholder='nombre producto' />
                 <label for="cantidad" className='form-label'>cantidad</label>
                 <input type="number"  onChange={(event)=>{Number(setStockProducto(event.target.value))}} className='form-control' placeholder='cantidad' />
                 <label for="precio">precio</label>
                 <input type="number"  onChange={(event)=>{Number(setPrecioProducto(event.target.value))}}  className='form-control' placeholder='$ precio' />
->>>>>>> 062877f (product)
 
               
                     <div class="mb-3 ">
@@ -271,11 +214,7 @@ const Productos = () => {
                       >
                        <option selected>seleccione</option>
                       {categorias.map((categoria,index)=>(
-<<<<<<< HEAD
-                        <option value={categoria.ID_CATEGORY} key={index}> <b className='fs-6'>{categoria.CATEGORY_NAME}</b>  ::: <b>{categoria.DESCRIPTION}</b></option>
-=======
                         <option value={categoria.ID} key={categoria.ID}> <b className='fs-6'>{categoria.NAME}</b>  ::: <b>{categoria.DESCRIPTION}</b></option>
->>>>>>> 062877f (product)
                       ))}
                        
                       
@@ -332,10 +271,7 @@ const Productos = () => {
     function changeEditar(){
     if(editar){
      setEditar(!editar);
-<<<<<<< HEAD
-=======
      setProductEdit('');
->>>>>>> 062877f (product)
     }  
     }
     
@@ -346,10 +282,7 @@ const Productos = () => {
         description:descripcionCategoria
       }).then(()=>{
         alert('categoria registrado')
-<<<<<<< HEAD
-=======
         getCatecogia();
->>>>>>> 062877f (product)
       })
     }
     
