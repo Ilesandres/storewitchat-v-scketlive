@@ -79,7 +79,7 @@ const Productos = () => {
           idProduct:id,
           valor:valor
         }).then(()=>{
-          
+          getProducts();
         })
       }
       
