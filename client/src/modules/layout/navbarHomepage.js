@@ -6,6 +6,6 @@ const NavbarHomepage = () => {
            var navegacion de home
         </div>
     );
-}
+};
 
 export default NavbarHomepage;

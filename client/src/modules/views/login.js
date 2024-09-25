@@ -7,6 +7,6 @@ const Login = () => {
             <Homepage/>
         </div>
     );
-}
+};
 
 export default Login;

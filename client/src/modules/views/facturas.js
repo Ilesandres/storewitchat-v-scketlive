@@ -16,9 +16,9 @@ const Facturas = () => {
       
       useEffect(()=>{
         if(back){
-            navigate('/')
+            navigate('/');
         }
-      },[back,navigate])
+      },[back,navigate]);
       
     
     return (
@@ -53,7 +53,7 @@ const Facturas = () => {
             <button>New</button>
             <button>Precio ascendente</button>
             <button>Precio descendente</button>
-            <button onClick={()=>{setBack(!back)}}>Volver</button>
+            <button onClick={()=>{setBack(!back);}}>Volver</button>
           </div>
         </div>
 
@@ -71,6 +71,6 @@ const Facturas = () => {
       </div>
     </div>
     );
-}
+};
 
 export default Facturas;

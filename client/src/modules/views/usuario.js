@@ -43,14 +43,14 @@ const Usuario = () => {
       
       useEffect(()=>{
         if(back){
-            navigate('/')
+            navigate('/');
         }
-      },[back,navigate])
+      },[back,navigate]);
     
     
     return (
         <div className="container_user">
-        <a className="back_link_user" onClick={()=>{setBack(!back)}}>Atrás</a>
+        <a className="back_link_user" onClick={()=>{setBack(!back);}}>Atrás</a>
   
         <div className="profile_section_user">
           {/* Icono de usuario */}
@@ -134,6 +134,6 @@ const Usuario = () => {
         </div>
       </div>
     );
-}
+};
 
 export default Usuario;

@@ -4,10 +4,10 @@ import Homepage from './modules/views/homepage';
 import Clientes from './modules/views/clientes';
 import Login from './modules/views/login';
 import Productos from './modules/views/productos';
-import Envios from './modules/views/envios'
+import Envios from './modules/views/envios';
 import Facturas from './modules/views/facturas';
 import Usuario from './modules/views/usuario';
-import Ventas from './modules/views/ventas'
+import Ventas from './modules/views/ventas';
 
 const AppRouter = () => {
     return (
@@ -23,6 +23,6 @@ const AppRouter = () => {
 
         </Routes>
     );
-}
+};
 
 export default AppRouter;

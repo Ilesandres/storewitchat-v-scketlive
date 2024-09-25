@@ -11,10 +11,10 @@ const Productos = () => {
 
   useEffect(()=>{
     if(back){
-      navigate('/')
+      navigate('/');
     }
 
-  },[back,navigate])
+  },[back,navigate]);
      
       
       
@@ -22,14 +22,14 @@ const Productos = () => {
       /*categoria */
       const [categoria, setCategoria]=useState('');
       const [descripcionCategoria, setDescripcionCategoria]=useState('');
-      const [categorias, setCategorias]=useState([])
+      const [categorias, setCategorias]=useState([]);
       
       /*obtengo las categorias */
       const getCatecogia=()=>{
         Axios.get('http://localhost:3001/leerCategorias').then((response)=>{
           setCategorias(response.data);
-        })
-      }
+        });
+      };
       
       /*productos */
       const [nombreProducto, setNombreProducto]=useState(null);
@@ -50,29 +50,29 @@ const Productos = () => {
             category:   categoriaProduct,
             isActivo:    enabledProducto
           }).then(()=>{
-            alert('producto agregado correctamente')
+            alert('producto agregado correctamente');
             getProducts();
-          })
+          });
         }
-      }
+      };
       
       const getProducts=()=>{
         Axios.get('http://localhost:3001/getProducts',{
           params: {search:searchProducts}
         }).then((response)=>{
-          setProductos(response.data)
-        })
-      }
+          setProductos(response.data);
+        });
+      };
       
       const deleteProduct=(id)=>{
-        alert('eliminando producto con id : '+id)
+        alert('eliminando producto con id : '+id);
         Axios.post('http://localhost:3001/deleteProduct',{
           idProduct:id
         }).then(()=>{
-          alert('producto eliminado con exito')
+          alert('producto eliminado con exito');
           getProducts();
-        })
-      }
+        });
+      };
       
       const changeStateProduct=(id, valor)=>{
         Axios.post('http://localhost:3001/changeState',{
@@ -80,8 +80,8 @@ const Productos = () => {
           valor:valor
         }).then(()=>{
           getProducts();
-        })
-      }
+        });
+      };
       
       
       useEffect(()=>{
@@ -102,7 +102,7 @@ const Productos = () => {
           setPrecioProducto(editProduct.PRICE);
           setCategoriaProduct(editProduct.CATEGORY_NAME);
         }
-      },[editar])
+      },[editar]);
       
       
       
@@ -115,7 +115,7 @@ const Productos = () => {
         getCatecogia();
 
 
-      },[])
+      },[]);
         
   // Se ejecuta solo cuando el componente se monta
       
@@ -125,7 +125,7 @@ const Productos = () => {
         <div className="product-list-container">
         {/* Encabezado */}
         <header className="header">
-          <a className="back-link" onClick={()=>{setBack(!back)}}>Back</a>
+          <a className="back-link" onClick={()=>{setBack(!back);}}>Back</a>
           <h1>Productos</h1>
           <button className="add-button" data-bs-toggle="modal" data-bs-target="#ModalAgregar">Agregar</button>
         </header>
@@ -135,7 +135,7 @@ const Productos = () => {
   
         {/* Barra de búsqueda */}
         <div className="search-bar">
-          <input type="search" onChange={(event)=>{setSearchProduct(event.target.value)}} placeholder="Search" className="search-input"/>
+          <input type="search" onChange={(event)=>{setSearchProduct(event.target.value);}} placeholder="Search" className="search-input"/>
         </div>
   
         {/* Tabla de productos */}
@@ -163,8 +163,8 @@ const Productos = () => {
                 <td>{product.CATEGORY_NAME}</td>
                 <td>{product.PRICE}</td>
                 <td>
-                  <button className="edit-button" onClick={()=>{setEditar(!editar); setProductEdit(product)}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
-                  <button type="button"  className="delete-button_product" onClick={()=>{deleteProduct(product.PRODUCT_ID)}}>Eliminar</button>
+                  <button className="edit-button" onClick={()=>{setEditar(!editar); setProductEdit(product);}} data-bs-toggle="modal" data-bs-target="#ModalAgregar">Editar</button>
+                  <button type="button"  className="delete-button_product" onClick={()=>{deleteProduct(product.PRODUCT_ID);}}>Eliminar</button>
 
                 </td>
                 <td>
@@ -181,36 +181,36 @@ const Productos = () => {
           </tbody>
         </table>
         {/* seccion de los modales que estaran ocultos */}
-        <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+        <div className="p-3 mb-2 bg-primary text-white">.bg-primary</div>
         
        
    
 
     
-      <div className="modal fade" id="ModalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="ModalAgregar" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="ModalAgregarLabel">{editar?'Editar el producto':'agregar producto'}</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal"  onClick={()=>{changeEditar()}} aria-label="Close"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal"  onClick={()=>{changeEditar();}} aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <div className='mb-3'>
-                <label for="nombreProducto" className='form-label'>Nombre del producto</label>
-                <input type="text"  onChange={(event)=>{setNombreProducto(event.target.value)}} name='nombreProduct' className='form-control' placeholder='nombre producto' />
-                <label for="cantidad" className='form-label'>cantidad</label>
-                <input type="number"  onChange={(event)=>{Number(setStockProducto(event.target.value))}} className='form-control' placeholder='cantidad' />
-                <label for="precio">precio</label>
-                <input type="number"  onChange={(event)=>{Number(setPrecioProducto(event.target.value))}}  className='form-control' placeholder='$ precio' />
+                <label htmlFor="nombreProducto" className='form-label'>Nombre del producto</label>
+                <input type="text"  onChange={(event)=>{setNombreProducto(event.target.value);}} name='nombreProduct' className='form-control' placeholder='nombre producto' />
+                <label htmlFor="cantidad" className='form-label'>cantidad</label>
+                <input type="number"  onChange={(event)=>{Number(setStockProducto(event.target.value));}} className='form-control' placeholder='cantidad' />
+                <label htmlFor="precio">precio</label>
+                <input type="number"  onChange={(event)=>{Number(setPrecioProducto(event.target.value));}}  className='form-control' placeholder='$ precio' />
 
               
-                    <div class="mb-3 ">
-                      <label for="" className="form-label">categoria</label>
+                    <div className="mb-3 ">
+                      <label htmlFor="" className="form-label">categoria</label>
                       <select
-                        class="form-select"
+                        className="form-select"
                         name="categoria"
                         id="categoria"
-                        onChange={(event)=>{setCategoriaProduct(event.target.value)}}
+                        onChange={(event)=>{setCategoriaProduct(event.target.value);}}
                       >
                        <option selected>seleccione</option>
                       {categorias.map((categoria,index)=>(
@@ -226,7 +226,7 @@ const Productos = () => {
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" onClick={()=>{changeEditar()}} data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-secondary" onClick={()=>{changeEditar();}} data-bs-dismiss="modal">Close</button>
               <button type="button" className="btn btn-primary" onClick={saveProduct} >{editar? 'Save changes':'save'}</button>
             </div>
           </div>
@@ -235,29 +235,29 @@ const Productos = () => {
       
       {/*modal de categorias para añadir*/}
       
-      <div class="modal fade " id="agregarCategoria"  tabindex="-1" aria-labelledby="agregarCategoriaLabel" aria-hidden="true" data-bs-backdrop='static'>
-        <div class="modal-dialog modal-dialog-centered ">
-          <div class="modal-content bg-secondary text-white">
-            <div class="modal-header">
-              <h5 class="modal-title" id="agregarCategoriaLabel">agregar categoria</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div className="modal fade " id="agregarCategoria"  tabIndex="-1" aria-labelledby="agregarCategoriaLabel" aria-hidden="true" data-bs-backdrop='static'>
+        <div className="modal-dialog modal-dialog-centered ">
+          <div className="modal-content bg-secondary text-white">
+            <div className="modal-header">
+              <h5 className="modal-title" id="agregarCategoriaLabel">agregar categoria</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
             <div className='mb-3'>
-              <label for="nombreCategoria" className='form-label'>Nombre de la categoria</label>
+              <label htmlFor="nombreCategoria" className='form-label'>Nombre de la categoria</label>
               <input type="text" name='nombreCategoria' onChange={(event)=>{
               setCategoria(event.target.value);
               }} className='form-control' placeholder='nombre'/>
-              <label for="descripcion" className='form-label' >descripcion</label>
+              <label htmlFor="descripcion" className='form-label' >descripcion</label>
               <textarea cols="30" name='descripcion' onChange={(event)=>{
               setDescripcionCategoria(event.target.value);
               }} rows="10" className='form-control' placeholder='describe brevemente la categoria'></textarea>
             </div>
                 
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onClick={agregarCategory}>Save changes</button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary" onClick={agregarCategory}>Save changes</button>
             </div>
           </div>
         </div>
@@ -277,13 +277,13 @@ const Productos = () => {
     
     /*min 48:13 */
     function agregarCategory(){
-      Axios.post("http://localhost:3001/createCategory",{
+      Axios.post('http://localhost:3001/createCategory',{
         category:categoria,
         description:descripcionCategoria
       }).then(()=>{
-        alert('categoria registrado')
+        alert('categoria registrado');
         getCatecogia();
-      })
+      });
     }
     
     function saveProduct(){
@@ -292,6 +292,6 @@ const Productos = () => {
       }
     }
     
-}
+};
 
 export default Productos;

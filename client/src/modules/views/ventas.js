@@ -26,7 +26,7 @@ const Ventas = () => {
         <div className="ventas-container_ventas">
             {/* Encabezado */}
             <header className="header_ventas">
-                <button className="back-btn_ventas" onClick={() => { navigate('/') }}>
+                <button className="back-btn_ventas" onClick={() => { navigate('/'); }}>
                     Back
                 </button>
                 <h1>Ventas</h1>
@@ -55,7 +55,7 @@ const Ventas = () => {
                 </div>
                 <div className="action-buttons_ventas">
                     <button className="add-btn_ventas">➕</button>
-                    <button onClick={()=>{clearProductsdata()}} className="clear-btn_ventas">🧹</button>
+                    <button onClick={()=>{clearProductsdata();}} className="clear-btn_ventas">🧹</button>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@ const Ventas = () => {
                     <h4>Cliente</h4>
                     <div className="client-seacrh-table">
                         <input type="text" value="Diego Moreno S" />
-                        <button onClick={() => { setSearchC(!searchC) }} className="search-client-btn_ventas" data-bs-toggle="modal" data-bs-target="#ModalSearch">🔍</button>
+                        <button onClick={() => { setSearchC(!searchC); }} className="search-client-btn_ventas" data-bs-toggle="modal" data-bs-target="#ModalSearch">🔍</button>
                     </div>
 
                     <table className="table bg-light">
@@ -132,7 +132,7 @@ const Ventas = () => {
                         </div>
                         <div className="modal-body">
                         <div className='mb-3'>
-                        <label for="search" className='form-label'>Buscar</label>
+                        <label htmlFor="search" className='form-label'>Buscar</label>
                           <input type='search' name='search' placeholder='producto a buscar' className='form-control'/>
                           
                         </div>
@@ -157,7 +157,7 @@ const Ventas = () => {
                               <td>{producto.producto}</td>
                               <td>{producto.precioUnidad}</td>
                               <td>{producto.stock}</td>
-                              <td><button onClick={()=>{selectProduct(index)}} className='btn btn-light' type="button">añadir</button></td>
+                              <td><button onClick={()=>{selectProduct(index);}} className='btn btn-light' type="button">añadir</button></td>
                             </tr>
                           ))}
                           </tbody>
@@ -214,8 +214,8 @@ const Ventas = () => {
     }
     
     function addProduct(){
-      
+      alert('agregando producto');
     }
-}
+};
 
 export default Ventas;

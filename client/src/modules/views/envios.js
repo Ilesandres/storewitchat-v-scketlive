@@ -8,10 +8,10 @@ const Envios = () => {
   
     useEffect(()=>{
       if(back){
-        navigate('/')
+        navigate('/');
       }
   
-    },[back,navigate])
+    },[back,navigate]);
   
       //ejemplos antes de conectar a BD
       const [envios, setEnvios] = useState([
@@ -27,7 +27,7 @@ const Envios = () => {
         <div className="product-list-container">
         {/* Encabezado */}
         <header className="header">
-          <a className="back-link" onClick={()=>{setBack(!back)}}>Back</a>
+          <a className="back-link" onClick={()=>{setBack(!back);}}>Back</a>
           <h1>envios</h1>
           <button className="add-button" data-bs-toggle="modal" data-bs-target="#ModalAgregar">Agregar</button>
         </header>
@@ -79,13 +79,13 @@ const Envios = () => {
           </tbody>
         </table>
         {/* seccion de los modales que estaran ocultos */}
-        <div class="p-3 mb-2 bg-primary text-white">.bg-primary</div>
+        <div className="p-3 mb-2 bg-primary text-white">.bg-primary</div>
         
        
    
 
     
-      <div className="modal fade" id="ModalAgregar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id="ModalAgregar" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -105,6 +105,6 @@ const Envios = () => {
 
       </div>
     );
-}
+};
 
 export default Envios;

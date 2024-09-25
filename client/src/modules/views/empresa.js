@@ -6,6 +6,6 @@ const Empresa = () => {
             
         </div>
     );
-}
+};
 
 export default Empresa;
