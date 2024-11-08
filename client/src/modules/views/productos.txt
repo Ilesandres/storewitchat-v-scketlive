@@ -77,7 +77,7 @@ const Productos = () => {
           idProduct:id,
           valor:valor
         }).then(()=>{ 
-          console.log('state changed');
+          console.log('');
         });
       };
       
