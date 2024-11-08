@@ -1,4 +1,4 @@
-#🛒📉 tienda en linea con SQL y PHP
+#🛒📉 tienda en linea con SQL, NODE y REACT
 ```
 codigo libre de una tienda online, las tecnologias usadas son react(axios), node(expres,sql) y sql, 
 ```
